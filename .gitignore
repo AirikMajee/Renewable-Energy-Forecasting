@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OS-related
 .DS_Store
 Thumbs.db
@@ -74,3 +75,6 @@ _pycache_/
 # Ignore secrets, envs
 .env
 secrets.json
+=======
+data/
+>>>>>>> 1f9c1b0 (Initial commit with project folder structure and sample data)
