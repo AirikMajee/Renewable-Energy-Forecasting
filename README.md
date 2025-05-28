@@ -1,101 +1,100 @@
-# Renewable-Energy-Forecasting
-**🔋Renewable Energy Forecasting using Weather & Grid Data**
+# 🔋 Renewable Energy Forecasting using Weather & Grid Data
 
-This project aims to forecast renewable energy generation in India using open-source weather data and national power grid reports. Inspired by platforms like Electricity Maps, it integrates VRE (Variable Renewable Energy) generation data with daily weather metrics to build an intelligent, city-aware hourly energy model.
+This project aims to forecast renewable energy generation in *India* using open-source weather data and national power grid reports. Inspired by platforms like *Electricity Maps, it integrates VRE (Variable Renewable Energy) generation with daily weather metrics to build an intelligent, city-aware **hourly energy model*.
 
-------------------------------------------------------------------------------------------------------------
+---
 
-**📌 Motivation**
+## 📌 Motivation
 
-India’s energy landscape is undergoing a massive shift toward renewable sources — yet forecasting clean energy availability at a granular level remains a challenge. This project explores:
+India’s energy landscape is shifting massively toward renewables — yet *accurate forecasting* at a granular level remains a challenge. This project explores:
 
-📈 Can we model solar and wind generation using just weather data?
+- 📈 Can we model solar and wind generation using just weather data?
+- 🌤 Can city-specific forecasts be built using regional sunlight and wind patterns?
+- 🔌 How can such forecasts help optimize grid stability, energy trading, and planning?
 
-🌤 Can city-specific forecasts be built using regional sunlight and wind patterns?
-🔌 How can such forecasts help optimize grid stability, energy trading, and planning?
+---
 
----------------------------------------------------------------------------------------------------------------
+## 🗂 Data Sources
 
-**📁 Data Sources Used**
+| Data Type       | Source                | Frequency | Description                                 |
+|-----------------|-----------------------|-----------|---------------------------------------------|
+| *VRE Reports*  | POSOCO REMC (PDF)     | Daily     | Wind & Solar summaries + REMC profiles       |
+| *PSP Reports*  | POSOCO (Excel)        | Daily     | Statewise/sourcewise demand, forecast        |
+| *NPP Reports*  | CEA (Excel)           | Daily     | Unit, Station & Sector-wise generation       |
+| *Weather Data* | Open-Meteo API        | Daily     | Radiation, wind speed, temperature           |
+| *City Mapping* | Manually Mapped       | Static    | Used for sunlight modeling (via Astral)      |
 
-Data Type	Source	Frequency	Notes
+---
 
-VRE Reports	POSOCO REMC (PDF)	Daily	Wind & Solar summary + REMC profile
-PSP Reports	POSOCO (Excel)	Daily	Statewise/sourcewise demand, forecast
-NPP Reports	CEA (Excel)	Daily	Generation by unit, station & sector
-Weather Data	Open-Meteo API	Daily	Radiation, wind speed, temperature
-City Mapping	Manually Mapped Coordinates	Static	Used for sunlight modeling via Astral
+## ⚙ What We Did
 
-----------------------------------------------------------------------------------------------------------------
+### 🧩 *Part 1 – Data Collection, Preprocessing & Merging*
 
-**⚙ What We Did (PART 1 - DATA COLLECTION, PREPROCESSING & MERGING)**
+- 📥 Extracted and cleaned data from *1000+ PDFs and Excel files*
+- 📊 Merged VRE, PSP, and weather datasets *aligned by date*
+- 🧠 Engineered a solar model using shortwave_radiation_sum + panel efficiency
+- 💨 Estimated wind power using daily wind speed + simplified turbine curve
+- 🕘 Converted daily data into *hourly estimates* using irradiance and wind profiles
+- 🔁 Combined city-level forecasts with regional VRE to simulate India-wide readiness
 
-📥 Extracted and cleaned data from 1000+ PDF and XLS files
+---
 
-📊 Built merged datasets aligning VRE, PSP and Weather sources by date
+### 🛠 *Part 2 – Feature Engineering & Modeling*
 
-🧠 Engineered a solar model using shortwave_radiation_sum + panel efficiency
+- 🌇 Used Astral to compute *dynamic sunrise/sunset* times per city and date
+- ⚡ Calibrated CUF using actual generation vs forecast deviation
+- 🛰 Integrated live weather APIs for *real-time predictions*
 
-💨 Estimated wind power using daily wind speed + simplified turbine curve
+---
 
-🕘 Expanded daily VRE data to hourly using irradiance and wind profiles
+### 📊 *Part 3 – Visualization & Deployment (Planned)*
 
-🔁 Combined city-level forecasts with region-level VRE to simulate India-wide grid readiness
+- 🧪 Build an interactive *web dashboard* (like Electricity Maps)
+- 🤖 Explore ML models (e.g., XGBoost, LSTM) for forecast learning
+- 📈 Estimate forecast accuracy (MAPE, RMSE, etc.) across regions
 
-**⚙ What We Did (PART 2 - FEATURE ENGINEERING AND MOEDELLING)**
+---
 
-🌇 Use Astral to compute dynamic sunrise/sunset hours per city & date
+## 📁 Folder Structure
 
-⚡ Calibrate models using actual CUF, forecast vs actual deviation
-
-🛰 Integrate with live weather APIs for real-time predictions
-
-**⚙ What We Did (PART 3 - VISUALIZATION & DEPLOYMENT)**
-
-🧪 Build an interactive web dashboard (like Electricity Maps)
-
-🤖 Explore ML models (e.g. XGBoost, LSTM) to learn from weather + PSP deviations
-
-📌 Estimate forecast accuracy region-wise, using error metrics like MAPE, RMSE
-
--------------------------------------------------------------------------------
-
-**🔍 Folder Structure**
-
+```plaintext
 renewable-energy-forecasting/
 ├── data/
-│   ├── raw/          # POSOCO & weather files
-│   ├── cleaned/      # Cleaned, dated reports
-│   ├── final/        # Fully merged + engineered datasets
-├── notebooks/        # Jupyter notebooks for each phase
-├── scripts/          # Extraction, parsing, modeling code
-├── assets/           # Charts, screenshots, graphs
-├── README.md         # This file
-├── requirements.txt  # Python dependencies
-└── .gitignore
-
+│   ├── raw/           # POSOCO & weather files
+│   ├── cleaned/       # Cleaned, dated reports
+│   ├── final/         # Fully merged + modeled datasets
+│   └── sample/        # Small test samples
+├── notebooks/         # Jupyter Notebooks per phase
+├── scripts/           # PDF parsing, merging, modeling
+├── assets/            # Charts, screenshots, graphs
+├── README.md          # This file
+├── requirements.txt   # Python dependencies
+└── .gitignore         # File exclusions 
+```
 ---
 
 **💡 Tech Stack**
 
 pandas, numpy, matplotlib
 
-astral (sunlight modeling)
+astral – for sunlight modeling
 
-PyMuPDF (fitz) for PDF parsing
+PyMuPDF (fitz) – PDF parsing
 
-glob, os, re for file automation
+glob, os, re – file automation
 
-Open-Meteo API for historical weather data
+Open-Meteo API – historical weather data
 
 ---
 
 **📈 Sample Output**
 
-> Plots and dashboards will be uploaded in the assets/ folder.
+Sample graphs and dashboards will be uploaded in the assets/ folder.
 
 ---
 
 **📜 License**
 
 This project is licensed under the MIT License.
+
+---
